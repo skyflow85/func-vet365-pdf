@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin:0;
+           /*margin-bottom: 50px;
+            margin-top: 50px;*/
+            padding: 0;
+            font-size: 12px;
+            page-break-inside: auto;
+        }
+
+
+
+        h1 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+
+
+        p {
+            margin: 4px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            page-break-inside: auto;
+
+        }
+
+        th,
+        td {
+            text-align: left;
+            vertical-align: top;
+            padding: 0px;
+        }
+
+
+        strong {
+            font-weight: bold;
+        }
+
+        /* Page Numbers */
+        .page-numbers {
+            text-align: center;
+            font-size: 8px;
+            position: fixed;
+            /* Posisjonert fast på siden */
+            bottom: 0;
+            /* Nederst på siden */
+            left: 0;
+            /* Venstre side av siden */
+            right: 0;
+            /* Høyre side av siden */
+            background-color: #fff;
+            /* Bakgrunnsfarge for lesbarhet */
+        }
+
+        .avoid-page-break {
+            page-break-inside: avoid;
+        }
+
+       
+
+        /* Styles go here */
+
+        .page-header,
+        .page-header-space {
+            height: 65px;
+        }
+
+        .page-footer,
+        .page-footer-space {
+            height: 65px;
+
+        }
+
+        .page-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid black;
+        
+        }
+
+        .page-header {
+            position: fixed;
+            top: 0mm;
+            width: 100%;
+            border-bottom: 1px solid black;
+  
+        }
+
+        .clinic-info td {
+            vertical-align: top;
+            text-align: right;
+            font-size: 10px;
+        }
+
+        /*
+        .page {
+            page-break-after: always;
+        }
+        */
+        @page {
+            margin: 20mm;
+            size: A4;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                position: fixed; /* Bruk fixed-posisjonering */
+                right: 20px; /* Plasser sidetallet 20 piksler fra høyre kant */
+                bottom: 20px; /* Plasser sidetallet 20 piksler fra bunnen */
+                font-family: 'Segoe UI', Arial, sans-serif;
+                margin:0;
+                font-size: 8px;
+
+    }
+            
+        }
+
+        @media print {
+            thead {
+                display: table-header-group;
+            }
+
+            tfoot {
+                display: table-footer-group;
+            }
+
+            button {
+                display: none;
+            }
+
+            footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+        }
+
+          
+        }
+    </style>
+</head>
+
+<body>
+    
+
+   
+
+    <div class="page">
+
+        
+
+        <table>
+            <tr>
+                {% if data.logo_base64 %}
+                <td style="text-align: left; vertical-align: middle;">
+                    <img src="data:image/png;base64,{{ data.logo_base64 }}" alt="Logo" style="max-width: 200px; max-height: 80px;">
+                </td>    
+                {% endif %}
+            
+                <td>
+                    <table class="clinic-info">
+                        
+                        <tr>
+                            <td>{{ data.ClinicName }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>{{ data.ClinicStreetAddress }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>{{ data.ClinicZipCode }} {{ data.ClinicCity }}</td>
+                        </tr>
+
+                        {% if data.ClinicPhone %}
+                        <tr>
+                            <td>{{ data.ClinicPhone }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.ClinicMail %}
+                        <tr>
+                            <td>{{ data.ClinicMail }}</td>
+                        </tr>
+                        {% endif %}
+
+                        
+                       
+                        
+                    </table>
+                </td>
+            </tr>
+        </table>
+    
+
+
+        <hr style="border: 0.25px solid black;">
+
+
+        <h1>Resept</h1>
+        <p><strong>Ref#:</strong> {{ data.MedicationRefID }}</p>
+        <p><strong>Veterinær:</strong> {{data.VetName}}</p>
+
+
+        <table>
+            <tr>
+                <td style="vertical-align: top;">
+                    <h2>Pasient</h2>
+                    <table>
+
+                        {% if data.HeardName %}
+                        <tr>
+                            <th>Flokk:</th>
+                            <td>{{ data.HeardName }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.HeardDescription %}
+                        <tr>
+                            <th>Beskrivelse:</th>
+                            <td>{{ data.HeardDescription }}</td>
+                        </tr>
+                        {% endif %}
+
+                       
+                        {% if data.PatientName %}
+                        <tr>
+                            <th>Navn:</th>
+                            <td>{{ data.PatientName }}</td>
+                        </tr>
+                        {% endif %}
+
+                        
+                        {% if data.PatientSpecies %}
+                        <tr>
+                            <th>Art</th>
+                            <td>{{ data.PatientSpecies }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientDob %}
+                        <tr>
+                            <th>Født:</th>
+                            <td>{{ data.PatientDob }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientIndividualNr %}
+                        <tr>
+                            <th>Individ-ID:</th>
+                            <td>{{ data.PatientIndividualNr }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientMicrochipNr %}
+                        <tr>
+                            <th>Microchip-Id:</th>
+                            <td>{{ data.PatientMicrochipNr }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientPassportNr %}
+                        <tr>
+                            <th>Passnr:</th>
+                            <td>{{ data.PatientPassportNr}}</td>
+                        </tr>
+                        {% endif %}
+
+
+
+                    </table>
+                </td>
+                <td style="vertical-align: top;">
+                    <h2>Eier</h2>
+                    <table>
+                        <tr>
+                            <th>Navn:</th>
+                            <td>{{ data.CustomerName }}</td>
+                        </tr>
+                        
+                        {% if data.CustomerAddress %}
+                        <tr>
+                            <th>Adresse</th>
+                            <td>{{ data.CustomerAddress }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.CustomerPhone %}
+                        <tr>
+                            <th>Telefon</th>
+                            <td> {{data.CustomerPhone}}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.CustomerMail %}
+                        <tr>
+                            <th>E-postadresse</th>
+                            <td>{{data.CustomerMail}}</td>
+                        </tr>
+                        {% endif %}
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+      
+        <h2>Legemiddel</h2>
+        <table>
+            <tr>
+                <th>Varenr</th>
+                <th>Navn</th>
+                <th>ATC kode</th>
+                <th>Mengde</th>
+                <th>Antall</th>
+            </tr>
+            <tr>
+                <td style="width: 75px;">{{ data.MedicationProductNr }}</td>
+                <td style="width: 300px;">{{ data.MedicationName }}</td>
+                <td style="width: 80px;">{{data.MedicationAtc}}</td>
+                <td>{{ data.MedicationPackaging}}</td>
+                <td>{{ data.Dosage}}</td>
+
+            </tr>
+            <tr>
+                <th colspan="5">
+                   DSSN:
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{data.MedicationDssn}}
+                </td>
+            </tr>
+
+            {% if data.MedicationRetentionMeat != 0 or data.MedicationRetentionMilkEgg != 0 or data.MedicationRetentionStartDenial != 0 %}
+            <tr>
+                <th>Tilbakeholdelsesfrister</th>
+            </tr>
+            <tr>
+                <td colspan="5">Kjøtt: {{ data.MedicationRetentionMeat }} | Melk/Egg: {{ data.MedicationRetentionMilkEgg }} | Startnekt: {{ data.MedicationRetentionStartDenial }} </td>
+            </tr >
+            {% endif %}
+
+        </table>
+    
+    
+
+    
+
+</table>
+
+
+    
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td style="text-align: left; vertical-align: middle;">
+                <img src="data:image/png;base64,{{ data.signature_base64 }}" alt="Logo" style="max-width: 200px; max-height: 80px;">
+            </td>    
+        </tr>
+        <tr>
+            <td>{{data.VetName}}</p></td>
+        </tr>
+        <tr>
+            <td>HPR-nr: {{data.VetHPRNr}}</td>
+        </tr>
+        <tr>
+            <td>Mob: {{data.VetPhone}}</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <p>Skrevet ut: {{ data.CurrentDateTime }} </p>
+    </div>
+
+</body>
+
+</html>
