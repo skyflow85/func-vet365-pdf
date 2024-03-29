@@ -259,6 +259,57 @@
             {% endfor %}
             {% endfor %}
 
+            {% if data.Diagnoses %}
+            <h2>Diagnoser</h2>
+            <table>
+                <tr>
+                    <th>Type</th>
+                </tr>
+                {% for diagnosis in data.Diagnoses %}
+                <tr>
+                    <td>
+                        {{ diagnosis.DiagnosisName }}
+                        {% if diagnosis.DiagnosisCode %}
+                            ({{ diagnosis.DiagnosisCode }})
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        {% if data.Medications %}
+        <h2>Legemidler</h2>
+        <table>
+            <tr>
+                <th>Varenr</th>
+                <th>Navn</th>
+                <th>Dosering</th>
+                <th>Siste behandling</th>
+                <th>Tilbakeholdelsesfrist (dager)</th>
+            </tr>
+            {% for medicine in data.Medications %}
+            <tr>
+                <td>{{ medicine.sky_productnumber }}</td>
+                <td style="width: 200px;">{{ medicine.sky_name }}</td>
+                <td>{{ medicine.sky_dosage }} {{ medicine.sky_unit }}</td>
+                <td>{{ medicine.LatestTreatmentMod }}</td>
+                <td>
+                    Kjøtt: {{ medicine.sky_retentionperiodmeat }}
+                    Melk/Egg: {{ medicine.sky_retentionperiodmilkegg }}
+                    Startnekt: {{ medicine.sky_retentionperiodstartdenial }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    
+    <br>
+    <br>
+    <br>
+    <p>Skrevet ut: {{ data.CurrentDateTime }} </p>
+    </div>
+
     
 
 </body>
