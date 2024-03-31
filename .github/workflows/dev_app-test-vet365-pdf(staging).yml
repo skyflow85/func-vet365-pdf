@@ -53,7 +53,9 @@ jobs:
     environment:
       name: 'staging'
       url: ${{ steps.deploy-to-function.outputs.webapp-url }}
-    
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -63,6 +65,13 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip     
         
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_308F853AB37349158B6FDBDE9EA4A7AC }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5E6B672F0F5C468AB9E28851CC68C861 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_53232D981F60419C9EA3DD3EC6EC4B8E }}
+
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         id: deploy-to-function
@@ -72,4 +81,4 @@ jobs:
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FA037ED6BA704064BB8122197A80E29F }}
+          
