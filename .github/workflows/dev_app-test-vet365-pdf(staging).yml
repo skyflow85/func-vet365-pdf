@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure Functions: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python project to Azure Function App - app-test-vet365-pdf
+name: Build and deploy Python project to Azure Function App - app-test-vet365-pdf(staging)
 
 on:
   push:
@@ -68,15 +68,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_85689922F0CF49C7B2446F227C4BFDA3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9F957B512D914DC18F4447168CB10560 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7D4B23883FA3490397A8715842D3F075 }}
+          client-id: ${{ secrets.__clientidsecretname__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
 
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         id: deploy-to-function
         with:
-          app-name: 'app-test-vet365-pdf'
+          app-name: 'app-test-vet365-pdf(staging)'
           slot-name: 'staging'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           scm-do-build-during-deployment: true
