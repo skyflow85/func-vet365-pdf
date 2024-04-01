@@ -1,21 +1,13 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            margin:0;
-           /*margin-bottom: 50px;
-            margin-top: 50px;*/
-            padding: 0;
             font-size: 12px;
-            page-break-inside: auto;
         }
-
-
-
+        
         h1 {
             font-family: 'Segoe UI', Arial, sans-serif;
             font-size: 18px;
@@ -24,21 +16,29 @@
 
         h2 {
             font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             margin-top: 20px;
+            margin-bottom: 0px;
+
         }
 
-
+        h3 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            margin-bottom: 4px;
+            
+        }
 
         p {
-            margin: 4px 0;
+            margin: 0px 0px;    
         }
 
+    
         table {
             width: 100%;
             border: none;
             margin-top: 10px;
-            page-break-inside: auto;
+          
 
         }
 
@@ -46,65 +46,11 @@
         td {
             text-align: left;
             vertical-align: top;
+            margin-left: 0px;
         }
-
-
+        
         strong {
             font-weight: bold;
-        }
-
-        /* Page Numbers */
-        .page-numbers {
-            text-align: center;
-            font-size: 8px;
-            position: fixed;
-            /* Posisjonert fast på siden */
-            bottom: 0;
-            /* Nederst på siden */
-            left: 0;
-            /* Venstre side av siden */
-            right: 0;
-            /* Høyre side av siden */
-            background-color: #fff;
-            /* Bakgrunnsfarge for lesbarhet */
-        }
-
-        .avoid-page-break {
-            page-break-inside: avoid;
-        }
-
-        @page {
-            size: A4;
-
-        }
-
-        /* Styles go here */
-
-        .page-header,
-        .page-header-space {
-            height: 65px;
-        }
-
-        .page-footer,
-        .page-footer-space {
-            height: 65px;
-
-        }
-
-        .page-footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            border-top: 1px solid black;
-        
-        }
-
-        .page-header {
-            position: fixed;
-            top: 0mm;
-            width: 100%;
-            border-bottom: 1px solid black;
-  
         }
 
         .clinic-info td {
@@ -113,89 +59,76 @@
             font-size: 10px;
         }
 
-        /*
-        .page {
-            page-break-after: always;
+        .journal-note-signature {
+            margin-top:4px;
+            margin-bottom:4px;
+            font-style: italic;
         }
-        */
+        
         @page {
             margin: 20mm;
-            
-        }
+            size: A4;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                position: fixed; /* Bruk fixed-posisjonering */
+                right: 20px; /* Plasser sidetallet 20 piksler fra høyre kant */
+                bottom: 20px; /* Plasser sidetallet 20 piksler fra bunnen */
+                font-family: 'Segoe UI', Arial, sans-serif;
+                margin:0;
+                font-size: 8px;
 
-        @media print {
-            thead {
-                display: table-header-group;
-            }
+    }
+}
 
-            tfoot {
-                display: table-footer-group;
-            }
-
-            button {
-                display: none;
-            }
-
-          
-        }
     </style>
 </head>
 
 <body>
-    
 
-   
-
-    <div class="page">
-
+    <table>
+        <tr>
+            {% if data.logo_base64 %}
+            <td style="text-align: left; vertical-align: middle;">
+                <img src="data:image/png;base64,{{ data.logo_base64 }}" alt="Logo" style="max-width: 200px; max-height: 80px;">
+            </td>    
+            {% endif %}
         
+            <td>
+                <table class="clinic-info">
+                    
+                    <tr>
+                        <td>dev {{ data.ClinicName }}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>{{ data.ClinicStreetAddress }}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>{{ data.ClinicZipCode }} {{ data.ClinicCity }}</td>
+                    </tr>
 
-        <table>
-            <tr>
-                {% if data.logo_base64 %}
-                <td style="text-align: left; vertical-align: middle;">
-                    <img src="data:image/png;base64,{{ data.logo_base64 }}" alt="Logo" style="max-width: 200px; max-height: 80px;">
-                </td>    
-                {% endif %}
-            
-                <td>
-                    <table class="clinic-info">
-                        
-                        <tr>
-                            <td>{{ data.ClinicName }}</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>{{ data.ClinicStreetAddress }}</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>{{ data.ClinicZipCode }} {{ data.ClinicCity }}</td>
-                        </tr>
+                    {% if data.ClinicPhone %}
+                    <tr>
+                        <td>{{ data.ClinicPhone }}</td>
+                    </tr>
+                    {% endif %}
 
-                        {% if data.ClinicPhone %}
-                        <tr>
-                            <td>{{ data.ClinicPhone }}</td>
-                        </tr>
-                        {% endif %}
+                    {% if data.ClinicMail %}
+                    <tr>
+                        <td>{{ data.ClinicMail }}</td>
+                    </tr>
+                    {% endif %}
 
-                        {% if data.ClinicMail %}
-                        <tr>
-                            <td>{{ data.ClinicMail }}</td>
-                        </tr>
-                        {% endif %}
+                    
+                   
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
 
-                        
-                       
-                        
-                    </table>
-                </td>
-            </tr>
-        </table>
-    
-
-
-        <hr style="border: 0.25px solid black;">
+    <hr style="border: 0.25px solid black;">
 
 
         <h1>Konsultasjon</h1>
@@ -206,7 +139,6 @@
         {% if data.ReasonForConsultation %}
         <p><strong>Årsak:</strong> {{ data.ReasonForConsultation }}</p>
         {% endif %}
-
         <table>
             <tr>
                 <td style="vertical-align: top;">
@@ -278,11 +210,6 @@
                         </tr>
                         {% endif %}
 
-                     
-
-
-
-
                     </table>
                 </td>
                 <td style="vertical-align: top;">
@@ -310,34 +237,29 @@
             </tr>
         </table>
 
-
         <h2>Journalnotat</h2>
-        <table>
+        
             {% for note in data.JournalNotes %}
-            <tr>
-                <th>{{ note.NoteTypeName }}</th>
-            </tr>
+            
+            <h3>{{ note.NoteTypeName }}</h3>
+            
             {% for detail in note.Details %}
 
-            <tr>
-                <td>{{ detail.sky_note|replace('\n', '<br>') }}</td>
-            </tr>
+            
+            <p>{{ detail.sky_note|replace('\n', '<br>') }}</p>
+            
             {% if detail.VetInitials != '# Vet365-IT' %}
-            <tr>
-                <td>
-                    Sist endret: {{detail.ModifiedDateTime}} av {{detail.VetInitials}}
-                </td>
-            </tr>
+            
+                
+            <p class="journal-note-signature">Sist endret: {{detail.ModifiedDateTime}} av {{detail.VetInitials}}</p>
+                
             {% endif %}
-            <tr>
-                <td></td>
-            </tr>
+
             {% endfor %}
             {% endfor %}
-        </table>
 
-
-        {% if data.Diagnoses %}
+            {% if data.Diagnoses %}
+            
             <h2>Diagnoser</h2>
             <table>
                 <tr>
@@ -387,6 +309,8 @@
     <br>
     <p>Skrevet ut: {{ data.CurrentDateTime }} </p>
     </div>
+
+    
 
 </body>
 

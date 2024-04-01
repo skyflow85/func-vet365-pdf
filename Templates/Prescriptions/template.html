@@ -332,14 +332,14 @@
                 <th>Navn</th>
                 <th>ATC kode</th>
                 <th>Mengde</th>
-                <th>Antall</th>
+                <th style="text-align: center;" >Antall</th>
             </tr>
             <tr>
                 <td style="width: 75px;">{{ data.MedicationProductNr }}</td>
                 <td style="width: 300px;">{{ data.MedicationName }}</td>
                 <td style="width: 80px;">{{data.MedicationAtc}}</td>
                 <td>{{ data.MedicationPackaging}}</td>
-                <td>{{ data.Dosage}}</td>
+                <td style="text-align: center;">{{ data.MedicationDosage}}</td>
 
             </tr>
             <tr>
@@ -371,13 +371,12 @@
 </table>
 
 
-    
     <br>
     <br>
     <table>
         <tr>
             <td style="text-align: left; vertical-align: middle;">
-                <img src="data:image/png;base64,{{ data.signature_base64 }}" alt="Logo" style="max-width: 200px; max-height: 80px;">
+                <img src="data:image/png;base64,{{ data.signature_base64 }}" alt="signatur" style="margin-left: -10px; max-width: 200px; max-height: 80px;">
             </td>    
         </tr>
         <tr>

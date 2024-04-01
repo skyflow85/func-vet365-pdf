@@ -127,6 +127,7 @@ def get_clinic_data(api_key):
     query = "SELECT ConsultationLogoUrl,ConsultationTemplateName, PrescriptionTemplateName FROM dbo.Clinics WHERE ApiKey = ?"  # Endret spørringen for å hente kun logo_url
     cursor.execute(query, api_key)
 
+
     # Hent resultatene
     result = cursor.fetchone()
 
