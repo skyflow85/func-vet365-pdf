@@ -22,7 +22,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: staging
+    environment: staging2
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v3
