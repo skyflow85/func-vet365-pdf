@@ -32,9 +32,6 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: 'Print Azure Function App Package Path'
-      run: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-
     - name: 'Print Azure Client ID and Secret'
       run: |
         echo "Azure Client ID: ${{ secrets.AZUREAPPSERVICE_CLIENTID_94CD1DA290764C259F5DBB08AAD2295E }}"
