@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'app-test-vet365-pdf/staging'
+  AZURE_FUNCTIONAPP_NAME: 'app-test-vet365-pdf'
   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'       # set this to the path to your function app project, defaults to the repository root
   PYTHON_VERSION: '3.9'                     # set this to the python version to use (e.g. '3.6', '3.7', '3.8')
