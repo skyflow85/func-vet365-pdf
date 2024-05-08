@@ -106,6 +106,7 @@ def get_clinic_data(api_key):
     # Hent resultatene
     result = cursor.fetchone()
 
+
     # Lukk tilkoblingen
     connection.close()
 
