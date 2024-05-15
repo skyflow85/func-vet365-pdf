@@ -146,10 +146,13 @@ def get_template_url(jsonDataType, clinic_data):
 
     consultation_folder = "Templates/Consultations/"
     prescription_folder = "Templates/Prescriptions/"
+    consultationMerge_folder = "Templates/ConsultationMerge/"
 
     if jsonDataType == "consultation":
         return consultation_folder + clinic_data.ConsultationTemplateName
     elif jsonDataType == "prescription":
         return prescription_folder + clinic_data.PrescriptionTemplateName
+    elif jsonDataType == "consultationMerge":
+        return consultationMerge_folder + "template_1.html"
     else:
         return consultation_folder + clinic_data.ConsultationTemplateName
