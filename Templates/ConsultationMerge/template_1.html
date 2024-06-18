@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 12px;
+        }
+        
+        h1 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 0px;
+
+        }
+
+        h3 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            margin-bottom: 4px;
+            
+        }
+
+        p {
+            margin: 0px 0px;    
+        }
+
+    
+        table {
+            width: 100%;
+            border: none;
+            margin-top: 10px;
+
+        }
+
+        th,
+        td {
+            text-align: left;
+            vertical-align: top;
+            margin-left: 0px;
+        }
+        
+        strong {
+            font-weight: bold;
+        }
+
+        .clinic-info td {
+            vertical-align: top;
+            text-align: right;
+            font-size: 10px;
+        }
+
+        .journal-note-signature {
+            margin-top:4px;
+            margin-bottom:4px;
+            font-style: italic;
+        }
+        
+        @page {
+            margin: 20mm;
+            size: A4;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                position: fixed; /* Bruk fixed-posisjonering */
+                right: 20px; /* Plasser sidetallet 20 piksler fra høyre kant */
+                bottom: 20px; /* Plasser sidetallet 20 piksler fra bunnen */
+                font-family: 'Segoe UI', Arial, sans-serif;
+                margin:0;
+                font-size: 8px;
+
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <tr>
+            {% if data.logo_base64 %}
+            <td style="text-align: left; vertical-align: middle;">
+                <img src="data:image/png;base64,{{ data.logo_base64 }}" alt="Logo" style="max-width: 200px; max-height: 80px;">
+            </td>    
+            {% endif %}
+        
+            <td>
+                <table class="clinic-info">
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.25px solid black;">
+
+
+        <h1>Journalutskrift</h1>
+       
+
+        <table>
+            <tr>
+                <td style="vertical-align: top;">
+                    <h2>Pasient</h2>
+                    <table>
+
+                        {% if data.HeardName %}
+                        <tr>
+                            <th>Flokk:</th>
+                            <td>{{ data.HeardName }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.HeardDescription %}
+                        <tr>
+                            <th>Beskrivelse:</th>
+                            <td>{{ data.HeardDescription }}</td>
+                        </tr>
+                        {% endif %}
+
+                       
+                        {% if data.PatientSpecies %}
+                        <tr>
+                            <th>Navn:</th>
+                            <td>{{ data.PatientName }}</td>
+                        </tr>
+                        {% endif %}
+
+                        
+                        {% if data.PatientSpecies %}
+                        <tr>
+                            <th>Art/rase</th>
+                            <td>{{ data.PatientSpecies }} / {{ data.PatientBreed }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientDob %}
+                        <tr>
+                            <th>Født:</th>
+                            <td>{{ data.PatientDob }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientIndividualNr %}
+                        <tr>
+                            <th>Individ-ID:</th>
+                            <td>{{ data.PatientIndividualNr }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientMicrochipNr %}
+                        <tr>
+                            <th>Microchip-Id:</th>
+                            <td>{{ data.PatientMicrochipNr }}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientPassportNr %}
+                        <tr>
+                            <th>Passnr:</th>
+                            <td>{{ data.PatientPassportNr}}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if data.PatientInsuranceCompanyName %}
+                        <tr>
+                            <th>Forsikring:</th>
+                            <td>{{ data.PatientInsuranceCompanyName}} (Nr:{{data.PatientInsuranceNr }}) </td>
+                        </tr>
+                        {% endif %}
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <h2>Journalnotat</h2>
+        
+        {% for Journal in data.Journals %}
+            
+        <h3>{{ Journal.VisitDate }}</h3>
+        <hr>
+            {% for Types in Journal.Types %}
+                <h3>{{ Types.NoteTypeName }}</h3>
+                {% for Note in Types.Notes %}
+                <p>{{Note.sky_note|replace('\n', '<br>')}}</p>
+                
+                {% if data.CreatedDateTime %}
+                <p class="journal-note-signature">Sist endret: {{Note.ModifiedDateTime}} av {{Note.VetInitials}} (Ref: K{{Note.ConsultationRefID}} | B{{Note.VisitRefID}} )</p>
+                {% endif %}
+
+                <hr>
+                {% endfor %}
+            {% endfor %}
+        
+        {% endfor %}
+
+    
+    <br>
+    <br>
+    <br>
+    <p>Skrevet ut:  </p>
+    </div>
+
+    
+
+</body>
+
+</html>
