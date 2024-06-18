@@ -184,30 +184,32 @@
 
         <h2>Journalnotat</h2>
         
-        {% for Journal in data.Journals %}
+        {% for Visit in data.Visits %}
             
-        <h3>{{ Journal.VisitDate }}</h3>
-        <hr>
-            {% for Types in Journal.Types %}
-                <h3>{{ Types.NoteTypeName }}</h3>
-                {% for Note in Types.Notes %}
-                <p>{{Note.sky_note|replace('\n', '<br>')}}</p>
-                
-                {% if data.CreatedDateTime %}
-                <p class="journal-note-signature">Sist endret: {{Note.ModifiedDateTime}} av {{Note.VetInitials}} (Ref: K{{Note.ConsultationRefID}} | B{{Note.VisitRefID}} )</p>
-                {% endif %}
+            <h2>Konsultasjon: {{ Visit.VisitDateFormated }}</h2>
 
-                <hr>
+                {% for Consultation in Visit.Consultations %}
+                    {% for NoteType in Consultation.NoteTypes %}   
+                        <h3>{{NoteType.NoteTypeName}}</h3>
+                            {% for Note in NoteType.Notes %}   
+                    
+                            <p>{{Note.sky_note|replace('\n', '<br>')}}</p>
+                    
+                            {% if Note.NoteCreatedDateTime %}
+                            <p class="journal-note-signature">Sist endret: {{Note.NoteModifiedDateTime}} av {{Note.VetInitials}} (Ref: K{{Note.ConsultationRefID}} | B{{Note.VisitRefID}} )</p>
+                            {% endif %}
+                            {% endfor %}
+                    {% endfor %}
+            
                 {% endfor %}
-            {% endfor %}
-        
         {% endfor %}
 
     
     <br>
     <br>
     <br>
-    <p>Skrevet ut:  </p>
+    <p>Skrevet ut: {{ data.CurrentDateTime }} </p>
+</p>
     </div>
 
     

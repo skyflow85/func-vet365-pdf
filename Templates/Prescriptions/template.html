@@ -342,6 +342,25 @@
                 <td style="text-align: center;">{{ data.MedicationDosage}}</td>
 
             </tr>
+        </table>
+
+        <table>
+
+            <tr>
+                <th colspan="5">
+                   Bruksområde:
+                </th>
+            </tr>
+
+            <tr>
+                <td>
+                   {{data.MedicationPrescriptionCode}}-{{data.MedicationApplicationAreaShortName}}
+                </td>
+            </tr>
+        </table>
+
+           <table>
+
             <tr>
                 <th colspan="5">
                    DSSN:
@@ -352,7 +371,26 @@
                     {{data.MedicationDssn}}
                 </td>
             </tr>
+        </table>
 
+        <table>
+
+            <tr>
+                <th colspan="5">
+                   Reit.:
+                </th>
+            </tr>
+
+            <tr>
+                <td>
+                   {{data.MedicationPrescriptionRefill}}
+                </td>
+            </tr>
+        </table>
+
+
+
+        <table>
             {% if data.MedicationRetentionMeat != 0 or data.MedicationRetentionMilkEgg != 0 or data.MedicationRetentionStartDenial != 0 %}
             <tr>
                 <th>Tilbakeholdelsesfrister</th>
